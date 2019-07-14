@@ -8,9 +8,7 @@ app.use(express.json())
 require('./routes/admin')(app)
 require('./plugins/db')(app)
 
-app.get('/', async (req, res) => {
-  res.send('index lalal')
-})
+app.use('/uploads', express.static(__dirname + '/uploads'))
 
 app.listen(3000, () => {
   console.log('http://localhost:3000');
