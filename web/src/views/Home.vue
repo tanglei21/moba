@@ -38,7 +38,7 @@
                  :categories="newsCats">
       <template #items="{category}">
         <router-link tag="div"
-                     to="/"
+                     :to="`/articles/${news._id}`"
                      v-for="(news,i) in category.newsList"
                      :key="i"
                      class="py-2 fs-lg d-flex">
@@ -56,7 +56,7 @@
         <div class="d-flex flex-wrap"
              style="margin: 0 -0.5rem;">
           <router-link tag="div"
-                       to="/"
+                       :to="`/heroes/${hero._id}`"
                        v-for="(hero,i) in category.heroList"
                        :key="i"
                        class="p-2 text-center"
