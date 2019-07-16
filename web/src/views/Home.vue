@@ -45,8 +45,28 @@
           <span class="text-info">[{{news.categoryName}}]</span>
           <span class="px-2">|</span>
           <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{news.title}}</span>
-          <span class="text-grey-1 fs-sm">{{news.date}}</span>
+          <span class="text-grey-1 fs-sm">{{news.createdAt|date}}</span>
         </router-link>
+      </template>
+    </m-list-card>
+    <m-list-card icon="card-hero"
+                 title="英雄列表"
+                 :categories="heroCats">
+      <template #items="{category}">
+        <div class="d-flex flex-wrap"
+             style="margin: 0 -0.5rem;">
+          <router-link tag="div"
+                       to="/"
+                       v-for="(hero,i) in category.heroList"
+                       :key="i"
+                       class="p-2 text-center"
+                       style="width: 20%;">
+            <img :src="hero.avatar"
+                 alt=""
+                 class="w-100">
+            <div>{{hero.name}}</div>
+          </router-link>
+        </div>
       </template>
     </m-list-card>
     <m-card icon="menu"
@@ -72,26 +92,24 @@ export default {
           el: '.pagination-home',
         }
       },
-      newsCats: [
-        {
-          name: '热门',
-          newsList: [{ categoryName: '公告', title: '7月16日全服不停机更新公告', date: '07/10' }]
-        },
-        {
-          name: '公告',
-          newsList: [{ categoryName: '公告', title: '7月16日全服不停机更新公告', date: '07/10' }]
-        },
-        {
-          name: '赛事',
-          newsList: [{ categoryName: '公告', title: '7月16日全服不停机更新公告', date: '07/10' }]
-        },
-        {
-          name: '活动',
-          newsList: [{ categoryName: '公告', title: '7月16日全服不停机更新公告', date: '07/10' }]
-        }
-      ],
+      newsCats: [],
       heroCats: []
     }
+  },
+  methods: {
+    async fetchNewsCats () {
+      const res = await this.$http.get('/news/list')
+      this.newsCats = res.data
+    },
+    async fetchHeroCats () {
+      const res = await this.$http.get('/heroes/list')
+      this.heroCats = res.data
+      // console.log(this.heroCats);
+    }
+  },
+  created () {
+    this.fetchNewsCats()
+    this.fetchHeroCats()
   },
 }
 </script>

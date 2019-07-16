@@ -10,7 +10,7 @@ module.exports = app => {
   const resourceMiddleware = require('../../middleware/resource')
   // 登录校验中间件
   const authMiddleware = require('../../middleware/auth')
-  
+
   // 用户登录
   app.post('/admin/api/login', async (req, res) => {
     const { username, password } = req.body
@@ -44,10 +44,10 @@ module.exports = app => {
   // 获取资源
   router.get('/', async (req, res) => {
     const queryOptions = {}
-    if (req.Model.ModelName === 'Category') {
+    if (req.Model.modelName === 'Category') {
       queryOptions.populate = 'parent'
     }
-    const items = await req.Model.find().setOptions(queryOptions).limit(10)
+    const items = await req.Model.find().setOptions(queryOptions).limit(100)
     res.send(items)
   })
   // 资源详情

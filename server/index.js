@@ -6,8 +6,9 @@ app.set('secret', 'sda8fasdg98s')
 app.use(cors())
 app.use(express.json())
 
-require('./routes/admin')(app)
 require('./plugins/db')(app)
+require('./routes/admin')(app)
+require('./routes/web')(app)
 
 app.use('/uploads', express.static(__dirname + '/uploads'))
 
