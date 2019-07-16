@@ -9,7 +9,7 @@ module.exports = options => {
     assert(token, 401, '请先登录')
     req.user = await AdminUser.findById(id)
     assert(req.user, 401, '请先登录')
-    console.log(req.user);
+    // console.log(req.user);
     await next()
   }
 }
